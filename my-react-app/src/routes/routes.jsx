@@ -3,6 +3,8 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import App from "../App";
 import CreateUser from "../components/formCreateUser";
+import UserDetails from "../components/userDetail";
+import UserUpdate from "../components/userUpdate";
 
 function UserRoutes() {
   return (
@@ -10,6 +12,8 @@ function UserRoutes() {
       <Routes>
         <Route path="/" element={<App />}></Route>
         <Route path="/create" element={<CreateUser />}></Route>
+        <Route path="/detail/:id" element={<UserDetails/>}/>
+        <Route path="/update/:id" element={<UserUpdate/>}/>
       </Routes>
     </Router>
   );
