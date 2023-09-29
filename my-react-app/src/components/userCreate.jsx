@@ -59,7 +59,10 @@ function CreateUser() {
             onChange={handleChange}
           />
         </div>
-        <button type="submit" className="btn btn-primary mt-2" onSubmit={handleSubmit}>
+        <button
+          type="submit"
+          className="btn btn-primary mt-2"
+          onSubmit={handleSubmit}>
           Create User
         </button>
       </form>

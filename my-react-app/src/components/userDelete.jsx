@@ -2,41 +2,46 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
-function UserDelete(){
-      const handleSubmit = async (e) => {
-        e.preventDefault();
-    
-        try {
-          const response = await axios.delete(
-            "http://localhost:3001/delete/${id}",
-          );
-        } catch (error) {
-          console.error("Cant delete User", error);
-        }
-      };
-const alertElement = document.querySelector('.alert');
+function UserDelete({ id }) {
+  console.log(id);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.delete(
+        `http://localhost:3001/deleteUser/${id}`
+      );
+      console.log("delete success");
+    } catch (error) {
+      console.error("Cant delete User", error);
+    }
+  };
+  const [showAlert, setShowAlert] = useState(true);
 
-if (alertElement) {
-  const closeButton = alertElement.querySelector('.btn-close');
-  
-  if (closeButton) {
-    closeButton.addEventListener('click', function () {
-      alertElement.style.display = 'none';
-    });
-  }
+  const handleCloseClick = () => {
+    setShowAlert(!showAlert);
+  };
+
+  return showAlert ? (
+    <div
+      className="alert alert-warning alert-dismissible fade show d-flex justify-content-between align-items-center"
+      role="alert">
+      <strong>Delete Alert! Confirm delete user ? </strong>
+      <div>
+        <button
+          type="button"
+          className="btn btn-outline-danger me-3"
+          onClick={handleSubmit}>
+          Delete
+        </button>
+        <button
+          type="button"
+          className="btn-close mt-1"
+          aria-label="Close"
+          onClick={handleCloseClick} // Xử lý sự kiện khi click vào nút "x"
+        ></button>
+      </div>
+    </div>
+  ) : null;
 }
 
-
-    return(
-        <div className="alert alert-warning alert-dismissible fade show d-flex justify-content-between align-items-center" role="alert">
-            Delete Alert: Are you sure to delete this user? 
-            <div>
-                <a className="text-decoration-none text-danger me-3" onClick={handleSubmit}>Delete</a>
-            </div>
-            <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-
-    )
-}
-
-export default UserDelete
+export default UserDelete;
